@@ -1,0 +1,39 @@
+server:
+  port: 8081
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
+    include-stacktrace: always
+    include-message: always
+
+logging:
+  level:
+    ROOT: INFO
+    com:
+      entando: DEBUG
+    org:
+      springframework:
+        security: debug
+
+#https://medium.com/devops-dudes/securing-spring-boot-rest-apis-with-keycloak-1d760b2004e
+keycloak:
+  auth-url: http://CHANGE-IT/auth
+  client-id: CHANGE-IT-USING-KC
+  client-secret: CHANGE-IT-USING-KC
+  ssl-required: none
+  auth-server-url: ${keycloak.auth-url}
+  bearer-only: true
+  credentials:
+    secret: ${keycloak.client-secret}
+  realm: entando
+  resource: ${keycloak.client-id}
+  use-resource-role-mappings: true
+
+app:
+  version: 1
+  name: entando-template
+  security:
+    auth-server-url: ${keycloak.auth-server-url}
+    realm: ${keycloak.realm}
+    client-ui: entando-web

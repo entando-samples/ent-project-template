@@ -1,0 +1,8 @@
+code: entando-hub-bundle
+description: The bundle with the hub components
+components:
+  plugins:
+    - plugins/entando-template-ms-plugin.yaml
+  widgets:
+    - ui/widgets/widgets-dir/et-widgets/et-widget-descriptor.yaml
+

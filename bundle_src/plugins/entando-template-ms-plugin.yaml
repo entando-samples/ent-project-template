@@ -1,0 +1,7 @@
+image: CHANGE-IT
+dbms: none
+ingressPath: "/entando-template-api"
+healthCheckPath: "/actuator/health"
+roles:
+  - "et-first-role"
+  - "et-second-role"
