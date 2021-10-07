@@ -1,5 +1,5 @@
-code: entando-hub-bundle
-description: The bundle with the hub components
+code: ent-prj-tmpl-bundle
+description: Template for ent projects
 components:
   plugins:
     - plugins/entando-template-ms-plugin.yaml
