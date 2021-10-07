@@ -4,5 +4,5 @@ components:
   plugins:
     - plugins/entando-template-ms-plugin.yaml
   widgets:
-    - ui/widgets/widgets-dir/et-widgets/et-widget-descriptor.yaml
+    - ui/widgets/widgets-dir/et-widget/et-widget-descriptor.yaml
 
