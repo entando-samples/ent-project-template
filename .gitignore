@@ -155,14 +155,12 @@ Desktop.ini
 # Entando bundles
 ######################
 ####
-/bundle/
 
 .ent/ent-state
 /src/main/docker/docker.yml
 /entando-data/
 /**/.ent/
-/**/bundle/
 /ui/**/build/
 
 ####
-bundle/
+/bundle/
