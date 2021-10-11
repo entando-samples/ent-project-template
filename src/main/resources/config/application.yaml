@@ -18,15 +18,16 @@ logging:
 
 #https://medium.com/devops-dudes/securing-spring-boot-rest-apis-with-keycloak-1d760b2004e
 keycloak:
-  auth-url: http://CHANGE-IT/auth
-  client-id: CHANGE-IT-USING-KC
-  client-secret: CHANGE-IT-USING-KC
+  #CHANGE-IT modify these settings for production or activate Spring profiles to separate config by environment
+  auth-url: http://localhost:9080/auth
+  client-id: web_app
+  client-secret: web_app
   ssl-required: none
   auth-server-url: ${keycloak.auth-url}
   bearer-only: true
   credentials:
     secret: ${keycloak.client-secret}
-  realm: entando
+  realm: jhipster
   resource: ${keycloak.client-id}
   use-resource-role-mappings: true
 
