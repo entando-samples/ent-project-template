@@ -15,7 +15,7 @@ services:
           '-Dkeycloak.migration.action=import',
           '-Dkeycloak.migration.strategy=IGNORE_EXISTING', #Use 'OVERWRITE_EXISTING' instead if you want to reset your current configuration
 #         Enable the next line to export the current realm-config
-          '-Dkeycloak.migration.action=export',
+#          '-Dkeycloak.migration.action=export',
       ]
     volumes:
       - ./realm-config:/opt/jboss/keycloak/realm-config

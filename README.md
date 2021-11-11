@@ -32,4 +32,4 @@ You can use the following commands from the application folder to run the local 
 ## Notes
 * Two users are included in the keycloak realm config
     * test-user/test-user - regular user with no role provided (receive 403 on api call)
-    * mf-widget-admin/mf-widget-admin - can access the api (role internal/mf-widget-admin)
+    * et-first-role/et-first-role - can access the api (role internal/mf-widget-admin)

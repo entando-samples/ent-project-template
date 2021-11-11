@@ -9,8 +9,8 @@ import javax.annotation.security.RolesAllowed;
 @RequestMapping("/api/example")
 public class TemplateController {
 
-    @RolesAllowed("mf-widget-admin")
-    //@PreAuthorize("hasAuthority('ROLE_mf-widget-admin')")
+    @RolesAllowed("et-first-role")
+    //@PreAuthorize("hasAuthority('ROLE_et-first-role')")
     @CrossOrigin
     @GetMapping("/")
     public MyResponse getExample() {
