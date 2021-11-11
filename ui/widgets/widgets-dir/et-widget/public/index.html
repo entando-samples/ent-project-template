@@ -1,39 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+          name="description"
+          content="Web site created using create-react-app"
+  />
+  <!--
+    Notice the use of %PUBLIC_URL% in the tags above.
+    It will be replaced with the URL of the `public` folder during the build.
+    Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Entando Template</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <et-app></et-app>
+    Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+    work correctly both with client-side routing and a non-root public URL.
+    Learn how to configure a non-root public URL by running `npm run build`.
+  -->
+  <title>Entando Hub</title>
+  <script src="http://localhost:9080/auth/js/keycloak.js"></script>
+  <script>
+    const onLoad = (function() {
+      function createKcDispatcher(payload) {
+        return () => window.dispatchEvent(new CustomEvent('keycloak', { detail: payload }));
+      }
 
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+      function initKeycloak() {
+        const keycloak = Keycloak({
+          url: 'http://localhost:9080/auth',
+          realm: 'entando',
+          clientId: 'web_app'
+        });
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        keycloak.onReady = createKcDispatcher({ eventType: 'onReady' });
+        keycloak.onAuthSuccess = createKcDispatcher({ eventType: 'onAuthSuccess' });
+        keycloak.onAuthError = createKcDispatcher({ eventType: 'onAuthError' });
+        keycloak.onAuthRefreshSuccess = createKcDispatcher({
+          eventType: 'onAuthRefreshSuccess'
+        });
+        keycloak.onAuthRefreshError = createKcDispatcher({
+          eventType: 'onAuthRefreshError'
+        });
+        keycloak.onAuthLogout = createKcDispatcher({ eventType: 'onAuthLogout' });
+        keycloak.onTokenExpired = createKcDispatcher({ eventType: 'onTokenExpired' });
+        const onInit = createKcDispatcher({ eventType: 'onInit' });
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        window.entando = {
+          ...(window.entando || {}),
+          keycloak
+        };
+
+        //If you are locally running the widget in isolation and you are not logged in,
+        //you are automatically redirected to keycloak login page to speed up development.
+
+        // const onLoad = window.location.hostname === 'localhost' ? 'login-required' : 'check-sso';
+        const onLoad = 'login-required';
+        //const silentCheckSsoRedirectUri = window.location.origin + '/silent-check-sso.html';
+
+        window.entando.keycloak.init({ onLoad }).success(onInit);
+
+      }
+      return initKeycloak;
+    })();
+  </script>
+</head>
+<body onLoad="onLoad();" class="home-localhost">
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<et-app></et-app>
+<button onclick="entando.keycloak.logout()">LOGOUT</button>
+
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
+</body>
 </html>

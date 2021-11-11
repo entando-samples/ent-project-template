@@ -19,9 +19,10 @@ With this configuration, you can use the ent cli (https://dev.entando.org/next/d
 * Check for the "CHANGE-IT" placeholders
 
 ## Local testing of the project
-You can use the following commands to test the microservices
-* `ent prj keycloak start` - or stop to shutdown keycloak again.
-* `ent prj be-test-run`
+You can use the following commands from the application folder to run the local stack
+* `ent prj xk start` - or stop to shutdown keycloak again.
+* `ent prj be-test-run` - to run the microservice
+* `ent prj fe-test-run` - to run the React frontend
 
 ## Local setup
 * Access Keycloak at http://localhost:9080/auth/
@@ -30,5 +31,5 @@ You can use the following commands to test the microservices
 
 ## Notes
 * Two users are included in the keycloak realm config
-    * admin/admin - admin user with realm-admin
-    * user/user - regular user
+    * test-user/test-user - regular user with no role provided (receive 403 on api call)
+    * mf-widget-admin/mf-widget-admin - can access the api (role internal/mf-widget-admin)

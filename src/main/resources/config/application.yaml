@@ -9,25 +9,20 @@ server:
 
 logging:
   level:
-    ROOT: INFO
-    com:
-      entando: DEBUG
-    org:
-      springframework:
-        security: debug
+    ROOT: DEBUG
 
 #https://medium.com/devops-dudes/securing-spring-boot-rest-apis-with-keycloak-1d760b2004e
 keycloak:
   #CHANGE-IT modify these settings for production or activate Spring profiles to separate config by environment
   auth-url: http://localhost:9080/auth
-  client-id: web_app
-  client-secret: web_app
+  client-id: internal
+  client-secret: 03e4db4e-f26b-45fb-9874-0dd7b3fd46b7
   ssl-required: none
   auth-server-url: ${keycloak.auth-url}
   bearer-only: true
   credentials:
     secret: ${keycloak.client-secret}
-  realm: jhipster
+  realm: entando
   resource: ${keycloak.client-id}
   use-resource-role-mappings: true
 
@@ -37,4 +32,4 @@ app:
   security:
     auth-server-url: ${keycloak.auth-server-url}
     realm: ${keycloak.realm}
-    client-ui: entando-web
+    client-ui: public
