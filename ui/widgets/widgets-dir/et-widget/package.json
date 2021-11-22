@@ -10,8 +10,10 @@
     "react-scripts": "4.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-NOHR": "react-scripts start",
+    "start": "HOST=localhost WDS_SOCKET_HOST=localhost WDS_SOCKET_PORT=3000 DANGEROUSLY_DISABLE_HOST_CHECK=true react-app-rewired start",
+    "build-NOHR": "react-scripts build",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -26,5 +28,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.1.8"
   }
+
 }
