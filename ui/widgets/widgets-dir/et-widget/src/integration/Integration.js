@@ -2,7 +2,7 @@ import axios from "axios";
 
 const endpoint = `${process.env.REACT_APP_PUBLIC_API_URL}/example/`
 
-const addAuthorizationRequestConfig = (config={})=>{
+const addAuthorizationRequestConfig = (config = {}) => {
     let defaultOptions = getDefaultOptions();
     return {
         ...config,
@@ -29,8 +29,17 @@ const getDefaultOptions = () => {
 }
 
 
-export const getData = async ()=>
-  await axios.get(endpoint, addAuthorizationRequestConfig())
+export const getData = async () => {
+    const responseObj = {}
+    try {
+        responseObj["response"] = await axios.get(endpoint, addAuthorizationRequestConfig())
+    } catch (error) {
+        console.error(error)
+        responseObj["error"] = error
+    }
+    return responseObj
+}
+
 
 
 
